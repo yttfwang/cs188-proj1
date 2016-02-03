@@ -114,17 +114,18 @@ def depthFirstSearch(problem):
         state = top[1]
 
         if problem.isGoalState(state):
-            print "@@@@@@@@@ FINAL LIST: ", actions
             return actions
         
         visited.add(state)
+        
 
+
+
+        
         for child in problem.getSuccessors(state):
             if (child[0] not in visited):
-
                 tempActions = actions[:]
                 tempActions.append(child[1])
-                #print "@@@@@@@@@Child position: ", child[0] # @@@
                 stack.push([tempActions, child[0]])
     return None
 
@@ -135,41 +136,7 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    from game import Directions
-    from util import Queue
-    s = Directions.SOUTH
-    w = Directions.WEST
-    e = Directions.EAST
-    n = Directions.NORTH
-    
-    visited = set() # list of states (each state is a position in this case)
-    stack = Queue() # contains pairs. each pair's first elem is a list of actions. second elem is state
-    stack.push([[], problem.getStartState()])
-    visited.add(problem.getStartState())
-
-    # startChildren = problem.getSuccessors(problem.getStartState())
-    # for child in startChildren: 
-    #     stack.push([[child[1]], child[0]])
-
-    while (not stack.isEmpty()):
-        top = stack.pop() # this is the top of the stack
-        actions = top[0]
-        state = top[1]
-
-        if problem.isGoalState(state):
-            print "@@@@@@@@@ FINAL LIST: ", actions
-            return actions
-        
-        visited.add(state)
-
-        for child in problem.getSuccessors(state):
-            if (child[0] not in visited):
-
-                tempActions = actions[:]
-                tempActions.append(child[1])
-                #print "@@@@@@@@@Child position: ", child[0] # @@@
-                stack.push([tempActions, child[0]])
-    return None
+    util.raiseNotDefined()
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
