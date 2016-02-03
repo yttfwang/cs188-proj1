@@ -118,6 +118,10 @@ def depthFirstSearch(problem):
         
         visited.add(state)
         
+
+
+
+        
         for child in problem.getSuccessors(state):
             if (child[0] not in visited):
                 tempActions = actions[:]
