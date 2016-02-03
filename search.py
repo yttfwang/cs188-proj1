@@ -114,28 +114,14 @@ def depthFirstSearch(problem):
         state = top[1]
 
         if problem.isGoalState(state):
-            print "@@@@@@@@@ FINAL LIST: ", actions
             return actions
         
         visited.add(state)
         
-
-        # if (state not in visited):
-        #     visited.add(state)            
-        #     children = problem.getSuccessors(state) 
-        #     for child in children:
-        #         tempActions = actions
-        #         tempActions.append(child[1])
-        #         #print "@@@@@@@@@Child position: ", child[0] # @@@
-        #         stack.push([tempActions, child[0]])
-
-
         for child in problem.getSuccessors(state):
             if (child[0] not in visited):
-
                 tempActions = actions[:]
                 tempActions.append(child[1])
-                #print "@@@@@@@@@Child position: ", child[0] # @@@
                 stack.push([tempActions, child[0]])
     return None
 
