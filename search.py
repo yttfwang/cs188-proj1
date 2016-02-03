@@ -144,16 +144,16 @@ def breadthFirstSearch(problem):
     n = Directions.NORTH
     
     visited = set() # list of states (each state is a position in this case)
-    stack = Queue() # contains pairs. each pair's first elem is a list of actions. second elem is state
-    stack.push([[], problem.getStartState()])
+    queue = Queue() # contains pairs. each pair's first elem is a list of actions. second elem is state
+    queue.push([[], problem.getStartState()])
     visited.add(problem.getStartState())
 
     # startChildren = problem.getSuccessors(problem.getStartState())
     # for child in startChildren: 
     #     stack.push([[child[1]], child[0]])
 
-    while (not stack.isEmpty()):
-        top = stack.pop() # this is the top of the stack
+    while (not queue.isEmpty()):
+        top = queue.pop() # this is the top of the stack
         actions = top[0]
         state = top[1]
 
@@ -170,14 +170,51 @@ def breadthFirstSearch(problem):
             if (child[0] not in visited):
                 tempActions = actions[:]
                 tempActions.append(child[1])
-                stack.push([tempActions, child[0]])
+                queue.push([tempActions, child[0]])
     return None
 
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from game import Directions
+    from util import PriorityQueue
+    s = Directions.SOUTH
+    w = Directions.WEST
+    e = Directions.EAST
+    n = Directions.NORTH
+    
+    visited = set() # list of states (each state is a position in this case)
+    pq = PriorityQueue() # contains pairs. each pair's first elem is a list of actions. second elem is state
+    pq.push([[], problem.getStartState()], 0)
+    visited.add(problem.getStartState())
+
+    # startChildren = problem.getSuccessors(problem.getStartState())
+    # for child in startChildren: 
+    #     stack.push([[child[1]], child[0]])
+
+    while (not pq.isEmpty()):
+        top = pq.pop() # this is the top of the stack
+        actions = top[0]
+        state = top[1]
+
+        if problem.isGoalState(state):
+            return actions
+        
+        visited.add(state)
+        
+
+
+
+        
+        for child in problem.getSuccessors(state):
+            if (child[0] not in visited):
+                tempActions = actions[:]
+                tempActions.append(child[1])
+                costOfActions = problem.getCostOfActions(tempActions)
+                pq.push([tempActions, child[0]], costOfActions)
+    return None
+
 
 def nullHeuristic(state, problem=None):
     """
@@ -189,7 +226,43 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from game import Directions
+    from util import PriorityQueue
+    s = Directions.SOUTH
+    w = Directions.WEST
+    e = Directions.EAST
+    n = Directions.NORTH
+    
+    visited = set() # list of states (each state is a position in this case)
+    pq = PriorityQueue() # contains pairs. each pair's first elem is a list of actions. second elem is state
+    pq.push([[], problem.getStartState()], 0)
+    visited.add(problem.getStartState())
+
+    # startChildren = problem.getSuccessors(problem.getStartState())
+    # for child in startChildren: 
+    #     stack.push([[child[1]], child[0]])
+
+    while (not pq.isEmpty()):
+        top = pq.pop() # this is the top of the stack
+        actions = top[0]
+        state = top[1]
+
+        if problem.isGoalState(state):
+            return actions
+        
+        visited.add(state)
+        
+
+
+
+        
+        for child in problem.getSuccessors(state):
+            if (child[0] not in visited):
+                tempActions = actions[:]
+                tempActions.append(child[1])
+                totalCostOfActions = problem.getCostOfActions(tempActions) + heuristic(child[0], problem)
+                pq.push([tempActions, child[0]], totalCostOfActions)
+    return None
 
 
 # Abbreviations
