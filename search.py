@@ -147,10 +147,10 @@ def breadthFirstSearch(problem):
     queue = Queue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     queue.push([[], problem.getStartState()])
     #print("@@@@@@@STARTSTATE: ", problem.getStartState())
-    visited.append(problem.getStartState())
-    for child in problem.getSuccessors(problem.getStartState()):
-         queue.push([[child[1]],child[0]])
-    print("VISITED = ", visited)
+    # visited.append(problem.getStartState())
+    # for child in problem.getSuccessors(problem.getStartState()):
+    #      queue.push([[child[1]],child[0]])
+    # print("VISITED = ", visited)
     # startChildren = problem.getSuccessors(problem.getStartState())
     # for child in startChildren: 
     #     stack.push([[child[1]], child[0]])
