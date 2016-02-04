@@ -289,7 +289,7 @@ class CornersProblem(search.SearchProblem):
         # in initializing the problem
         "*** YOUR CODE HERE ***"
 
-        self.startState = [self.startingPosition, [False, False, False, False]] # the 2nd elem is a list of booleans for hasVisitedCorner. [botleft, topleft, botright, topright]
+        self.startState = (self.startingPosition, [False, False, False, False]) # the 2nd elem is a list of booleans for hasVisitedCorner. [botleft, topleft, botright, topright]
         self.costFn = lambda x: 1
 
     def getStartState(self):
@@ -340,9 +340,6 @@ class CornersProblem(search.SearchProblem):
         return successors
 
 
-
-
-        return successors
 
     def getCostOfActions(self, actions):
         """
