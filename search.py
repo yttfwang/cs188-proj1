@@ -146,31 +146,34 @@ def breadthFirstSearch(problem):
     visited = [None] # list of states (each state is a position in this case)
     queue = Queue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     queue.push([[], problem.getStartState()])
-    print("@@@@@@@STARTSTATE: ", problem.getStartState())
+    #print("@@@@@@@STARTSTATE: ", problem.getStartState())
     visited.append(problem.getStartState())
-
+    for child in problem.getSuccessors(problem.getStartState()):
+         queue.push([[child[1]],child[0]])
+    print("VISITED = ", visited)
     # startChildren = problem.getSuccessors(problem.getStartState())
     # for child in startChildren: 
     #     stack.push([[child[1]], child[0]])
 
     while (not queue.isEmpty()):
         top = queue.pop() # this is the top of the stack
+        #print("@@@@@TOP: ", top)
         actions = top[0]
         state = top[1]
-
-        if problem.isGoalState(state):
-            return actions
-        
-        visited.append(state)
-        
-
-
-
-        
-        for child in problem.getSuccessors(state):
-           # print ("@@@@@@STATE: ", child)
-            if (child[0] not in visited):
+        #print("@@@@@@STATE: ", state)
+        if (state not in visited):
+           # print("@@@@@@ENTERETED LOOP")
+            if problem.isGoalState(state):
+             #   print("@@@@ACTIONS: ", actions)
+                return actions
+            
+            visited.append(state)
+            
+            for child in problem.getSuccessors(state): #returns (nextstate, actions, cost)
+               # print ("@@@@@@STATE: ", child)
+                #if (child[0] not in visited):
                 tempActions = actions[:]
+               # print("!!!!!!!TYPE ", type(tempActions))
                 tempActions.append(child[1])
                 queue.push([tempActions, child[0]])
     return None

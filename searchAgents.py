@@ -303,7 +303,7 @@ class CornersProblem(search.SearchProblem):
         """
         Returns whether this search state is a goal state of the problem.
         """
-
+        print ("@@@@@@STATE: ", state[1])
         return state[1] == [True, True, True, True]
 
 
@@ -335,16 +335,17 @@ class CornersProblem(search.SearchProblem):
                 position = state[0]
                 lstHasVisitedCorners = state[1] #
                 tempLstHasVisitedCorners = lstHasVisitedCorners[:]
-                if position in self.corners:
-                    if position == self.corners[0]:
-                        tempLstHasVisitedCorners[0] = True
-                    elif position == self.corners[1]:
-                        tempLstHasVisitedCorners[1] = True                
-                    elif position == self.corners[2]:
-                        tempLstHasVisitedCorners[2] = True
-                    elif position == self.corners[3]:
-                        tempLstHasVisitedCorners[3] = True
 
+
+                if (nextx, nexty) in self.corners:
+                    if (nextx, nexty) == self.corners[0]:
+                        tempLstHasVisitedCorners[0] = True
+                    elif (nextx, nexty) == self.corners[1]:
+                        tempLstHasVisitedCorners[1] = True                
+                    elif (nextx, nexty) == self.corners[2]:
+                        tempLstHasVisitedCorners[2] = True
+                    elif (nextx, nexty) == self.corners[3]:
+                        tempLstHasVisitedCorners[3] = True
 
                 "***WILL FINISH***"
 
