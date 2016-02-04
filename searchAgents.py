@@ -328,15 +328,27 @@ class CornersProblem(search.SearchProblem):
             #   hitsWall = self.walls[nextx][nexty]
 
             "*** YOUR CODE HERE ***"
-            x,y = state
+            x,y = state[0]
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             if not self.walls[nextx][nexty]:
                 position = state[0]
                 lstHasVisitedCorners = state[1] #
-                if position in self.
+                tempLstHasVisitedCorners = lstHasVisitedCorners[:]
+                if position in self.corners:
+                    if position == self.corners[0]:
+                        tempLstHasVisitedCorners[0] = True
+                    elif position == self.corners[1]:
+                        tempLstHasVisitedCorners[1] = True                
+                    elif position == self.corners[2]:
+                        tempLstHasVisitedCorners[2] = True
+                    elif position == self.corners[3]:
+                        tempLstHasVisitedCorners[3] = True
+
+
                 "***WILL FINISH***"
-                nextState = (nextx, nexty)
+
+                nextState = ((nextx, nexty), tempLstHasVisitedCorners)
                 cost = self.costFn(nextState)
                 successors.append( ( nextState, action, cost) )
 
