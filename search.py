@@ -99,10 +99,10 @@ def depthFirstSearch(problem):
     e = Directions.EAST
     n = Directions.NORTH
     
-    visited = set() # list of states (each state is a position in this case)
+    visited = [None] # list of states (each state is a position in this case)
     stack = Stack() # contains pairs. each pair's first elem is a list of actions. second elem is state
     stack.push([[], problem.getStartState()])
-    visited.add(problem.getStartState())
+    visited.append(problem.getStartState())
 
     # startChildren = problem.getSuccessors(problem.getStartState())
     # for child in startChildren: 
@@ -116,7 +116,7 @@ def depthFirstSearch(problem):
         if problem.isGoalState(state):
             return actions
         
-        visited.add(state)
+        visited.append(state)
         
 
 
@@ -143,10 +143,11 @@ def breadthFirstSearch(problem):
     e = Directions.EAST
     n = Directions.NORTH
     
-    visited = set() # list of states (each state is a position in this case)
+    visited = [None] # list of states (each state is a position in this case)
     queue = Queue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     queue.push([[], problem.getStartState()])
-    visited.add(problem.getStartState())
+    print("@@@@@@@STARTSTATE: ", problem.getStartState())
+    visited.append(problem.getStartState())
 
     # startChildren = problem.getSuccessors(problem.getStartState())
     # for child in startChildren: 
@@ -160,13 +161,14 @@ def breadthFirstSearch(problem):
         if problem.isGoalState(state):
             return actions
         
-        visited.add(state)
+        visited.append(state)
         
 
 
 
         
         for child in problem.getSuccessors(state):
+           # print ("@@@@@@STATE: ", child)
             if (child[0] not in visited):
                 tempActions = actions[:]
                 tempActions.append(child[1])
@@ -184,10 +186,10 @@ def uniformCostSearch(problem):
     e = Directions.EAST
     n = Directions.NORTH
     
-    visited = set() # list of states (each state is a position in this case)
+    visited = [None] # list of states (each state is a position in this case)
     pq = PriorityQueue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     pq.push([[], problem.getStartState()], 0)
-    visited.add(problem.getStartState())
+    visited.append(problem.getStartState())
 
     # startChildren = problem.getSuccessors(problem.getStartState())
     # for child in startChildren: 
@@ -201,7 +203,7 @@ def uniformCostSearch(problem):
         if problem.isGoalState(state):
             return actions
         
-        visited.add(state)
+        visited.append(state)
         
 
 
@@ -233,10 +235,10 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     e = Directions.EAST
     n = Directions.NORTH
     
-    visited = set() # list of states (each state is a position in this case)
+    visited = [None] # list of states (each state is a position in this case)
     pq = PriorityQueue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     pq.push([[], problem.getStartState()], 0)
-    visited.add(problem.getStartState())
+    visited.append(problem.getStartState())
 
     # startChildren = problem.getSuccessors(problem.getStartState())
     # for child in startChildren: 
@@ -250,7 +252,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
         if problem.isGoalState(state):
             return actions
         
-        visited.add(state)
+        visited.append(state)
         
 
 

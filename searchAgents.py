@@ -332,6 +332,10 @@ class CornersProblem(search.SearchProblem):
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             if not self.walls[nextx][nexty]:
+                position = state[0]
+                lstHasVisitedCorners = state[1] #
+                if position in self.
+                "***WILL FINISH***"
                 nextState = (nextx, nexty)
                 cost = self.costFn(nextState)
                 successors.append( ( nextState, action, cost) )
