@@ -138,20 +138,24 @@ def breadthFirstSearch(problem):
         actions = top[0]
         state = top[1]
         #print("@@@@@@STATE: ", state)
-        if (state not in visited):
+        
            # print("@@@@@@ENTERETED LOOP")
-            if problem.isGoalState(state):
-             #   print("@@@@ACTIONS: ", actions)
-                return actions
-            
-            visited.append(state)
-            
-            for child in problem.getSuccessors(state): #returns (nextstate, actions, cost)
+        if problem.isGoalState(state):
+         #   print("@@@@ACTIONS: ", actions)
+            return actions
+        
+        visited.append(state)
+        
+        for child in problem.getSuccessors(state): #returns (nextstate, actions, cost)
+            childAction = child[1]
+            childState = child[0]
+            if (childState not in visited):
+                visited.append(childState)
                # print ("@@@@@@STATE: ", child)
                 #if (child[0] not in visited):
                 tempActions = actions[:]
                # print("!!!!!!!TYPE ", type(tempActions))
-                tempActions.append(child[1])
+                tempActions.append(childAction)
                 queue.push([tempActions, child[0]])
     return None
 

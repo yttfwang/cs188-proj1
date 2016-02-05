@@ -303,7 +303,6 @@ class CornersProblem(search.SearchProblem):
         """
         Returns whether this search state is a goal state of the problem.
         """
-        print ("@@@@@@STATE: ", state[1])
         return state[1] == [True, True, True, True]
 
 
@@ -387,9 +386,66 @@ def cornersHeuristic(state, problem):
     """
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
-
+    #print corners
     "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    """find the manhattan distance from current state to all remaining corners
+        find the smallest distance
+        find the perimeter around walls to reach remaining corners
+            return the smaller perimeter + current position to closest corner
+        state = ex: ((23, 12), [True, True, True, False])
+    """
+    position = state[0]
+    cornerStatus = state[1]
+    trues = 0
+    for i in range(4):
+        if cornerStatus[i] == True:
+            trues = trues + 1
+    
+    if False not in cornerStatus:
+        return 0
+    
+    manDistances = [0] * 4
+    minCornerDistance = 0
+    firstCornerIndex = 0
+    for i in range(len(cornerStatus)):
+        if cornerStatus[i] == False:
+            goal = corners[i]
+            manDistances[i] = abs(goal[0] - position[0]) + abs(goal[1] - position[1]) #calculates the distance from current position to each remaining corner
+    
+    # if (trues == 1):
+    #     for i in range(4):
+    #         if manDistances[i] == 0:
+    #             firstCornerIndex = i + 1 
+    #     if firstCornerIndex == 4:
+    #         firstCornerIndex = 0
+    #     minCornerDistance = manDistances[firstCornerIndex]  
+    #     b = i - 1
+    #     if b < 0:
+    #         b = 3
+    #     minCornerDistance = min(minCornerDistance, manDistances[b]) 
+    # else:
+    minCornerDistance = min(i for i in manDistances if i > 0)
+    firstCornerIndex = manDistances.index(minCornerDistance)
+    if firstCornerIndex == 4:
+        firstCornerIndex = 0
+   
+    
+   
+    minDistance = 1E9
+    for i in range(4):
+        for j in range(i + 1, 4):
+            if cornerStatus[i] != True and cornerStatus[j] != True:
+                fromCorner = corners[i]
+                toCorner = corners[j]
+                tempDist = (abs(fromCorner[0] - toCorner[0]) + abs(fromCorner[1] - toCorner[1]))
+                if tempDist < minDistance:
+                    minDistance = tempDist
+    minTotDist = minDistance * (3 - trues) + minCornerDistance
+    #minTotDist = min(totCcwDist, totCwDist) + minCornerDistance
+    
+
+    
+    return minTotDist;
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
