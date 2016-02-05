@@ -87,10 +87,6 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
-    # print "Start:", problem.getStartState()
-    # print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-    # print "Start's successors:", problem.getSuccessors(problem.getStartState())
-    # print "Problem: ", problem
 
     from game import Directions
     from util import Stack
@@ -102,28 +98,16 @@ def depthFirstSearch(problem):
     visited = [None] # list of states (each state is a position in this case)
     stack = Stack() # contains pairs. each pair's first elem is a list of actions. second elem is state
     stack.push([[], problem.getStartState()])
-    visited.append(problem.getStartState())
-
-    # startChildren = problem.getSuccessors(problem.getStartState())
-    # for child in startChildren: 
-    #     stack.push([[child[1]], child[0]])
 
     while (not stack.isEmpty()):
         top = stack.pop() # this is the top of the stack
         actions = top[0]
         state = top[1]
-
-        if problem.isGoalState(state):
-            return actions
-        
-        visited.append(state)
-        
-
-
-
-        
-        for child in problem.getSuccessors(state):
-            if (child[0] not in visited):
+        if (state not in visited):
+            if problem.isGoalState(state):
+                return actions    
+            visited.append(state)           
+            for child in problem.getSuccessors(state):               
                 tempActions = actions[:]
                 tempActions.append(child[1])
                 stack.push([tempActions, child[0]])
@@ -146,14 +130,7 @@ def breadthFirstSearch(problem):
     visited = [None] # list of states (each state is a position in this case)
     queue = Queue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     queue.push([[], problem.getStartState()])
-    #print("@@@@@@@STARTSTATE: ", problem.getStartState())
-    # visited.append(problem.getStartState())
-    # for child in problem.getSuccessors(problem.getStartState()):
-    #      queue.push([[child[1]],child[0]])
-    # print("VISITED = ", visited)
-    # startChildren = problem.getSuccessors(problem.getStartState())
-    # for child in startChildren: 
-    #     stack.push([[child[1]], child[0]])
+
 
     while (not queue.isEmpty()):
         top = queue.pop() # this is the top of the stack
@@ -192,28 +169,19 @@ def uniformCostSearch(problem):
     visited = [None] # list of states (each state is a position in this case)
     pq = PriorityQueue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     pq.push([[], problem.getStartState()], 0)
-    visited.append(problem.getStartState())
 
-    # startChildren = problem.getSuccessors(problem.getStartState())
-    # for child in startChildren: 
-    #     stack.push([[child[1]], child[0]])
 
     while (not pq.isEmpty()):
         top = pq.pop() # this is the top of the stack
         actions = top[0]
         state = top[1]
-
-        if problem.isGoalState(state):
-            return actions
-        
-        visited.append(state)
-        
-
-
-
-        
-        for child in problem.getSuccessors(state):
-            if (child[0] not in visited):
+        if (state not in visited):
+            if problem.isGoalState(state):
+                return actions
+            
+            visited.append(state)
+            
+            for child in problem.getSuccessors(state):           
                 tempActions = actions[:]
                 tempActions.append(child[1])
                 costOfActions = problem.getCostOfActions(tempActions)
@@ -241,28 +209,19 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     visited = [None] # list of states (each state is a position in this case)
     pq = PriorityQueue() # contains pairs. each pair's first elem is a list of actions. second elem is state
     pq.push([[], problem.getStartState()], 0)
-    visited.append(problem.getStartState())
-
-    # startChildren = problem.getSuccessors(problem.getStartState())
-    # for child in startChildren: 
-    #     stack.push([[child[1]], child[0]])
 
     while (not pq.isEmpty()):
         top = pq.pop() # this is the top of the stack
         actions = top[0]
         state = top[1]
-
-        if problem.isGoalState(state):
-            return actions
-        
-        visited.append(state)
-        
-
-
-
-        
-        for child in problem.getSuccessors(state):
-            if (child[0] not in visited):
+        if (state not in visited):
+            if problem.isGoalState(state):
+                return actions
+            
+            visited.append(state)
+            
+            for child in problem.getSuccessors(state):
+            
                 tempActions = actions[:]
                 tempActions.append(child[1])
                 totalCostOfActions = problem.getCostOfActions(tempActions) + heuristic(child[0], problem)
