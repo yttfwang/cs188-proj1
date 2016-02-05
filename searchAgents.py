@@ -412,25 +412,11 @@ def cornersHeuristic(state, problem):
             goal = corners[i]
             manDistances[i] = abs(goal[0] - position[0]) + abs(goal[1] - position[1]) #calculates the distance from current position to each remaining corner
     
-    # if (trues == 1):
-    #     for i in range(4):
-    #         if manDistances[i] == 0:
-    #             firstCornerIndex = i + 1 
-    #     if firstCornerIndex == 4:
-    #         firstCornerIndex = 0
-    #     minCornerDistance = manDistances[firstCornerIndex]  
-    #     b = i - 1
-    #     if b < 0:
-    #         b = 3
-    #     minCornerDistance = min(minCornerDistance, manDistances[b]) 
-    # else:
     minCornerDistance = min(i for i in manDistances if i > 0)
     firstCornerIndex = manDistances.index(minCornerDistance)
     if firstCornerIndex == 4:
         firstCornerIndex = 0
-   
-    
-   
+  
     minDistance = 1E9
     for i in range(4):
         for j in range(i + 1, 4):
@@ -441,10 +427,7 @@ def cornersHeuristic(state, problem):
                 if tempDist < minDistance:
                     minDistance = tempDist
     minTotDist = minDistance * (3 - trues) + minCornerDistance
-    #minTotDist = min(totCcwDist, totCwDist) + minCornerDistance
-    
-
-    
+ 
     return minTotDist;
 
 class AStarCornersAgent(SearchAgent):
@@ -539,7 +522,22 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
+    closestFoodDist = 999999;
+    farthestFoodDist = 0;
+    numFood = 0;
+
+    for i in xrange(foodGrid.width):
+        for j in xrange(foodGrid.height):
+            if foodGrid[i][j] == True:
+                #numFood += 1 
+
+                foodDist = abs(position[0] - i) + abs(position[1] - j)
+                if foodDist > farthestFoodDist:
+                    farthestFoodDist = foodDist
+
+
+
+    return farthestFoodDist
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
